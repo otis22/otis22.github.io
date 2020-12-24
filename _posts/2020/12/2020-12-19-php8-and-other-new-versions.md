@@ -1,7 +1,7 @@
 ---
 layout: post
-title: PHP8 что с ним делать? 
-tags: PHP, PHP8 
+title: PHP8 что с ним делать?
+categories: PHP8 
 ---
 
 Вышла новая версия PHP, я еще не пробовал новые возможности языка,

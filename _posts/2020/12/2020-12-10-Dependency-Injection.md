@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Dependency Inversion Principle - почему все забивают?
-tags: DIP DI
+categories: DIP
 ---
 Постоянно встречаю в проекте код, который нарушает этот принцип. Почему разработчики предпочитаю забить?
 

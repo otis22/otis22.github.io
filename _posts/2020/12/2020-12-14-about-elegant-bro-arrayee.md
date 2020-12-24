@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Elegant Way в php
-tags: ElegantObjects
+categories: ElegantObjects
 ---
 
 Кто не слышал про [Elegant Objects](https://www.elegantobjects.org/)? Советую познакомиться и с концепцией и с её автором. Даже если вы с автором не согласны, вам не будет скучно.

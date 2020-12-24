@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Elegant Objects, нужны они мне? 
-tags: Elegant Pragmatic Objects
+title: Elegant Objects, нужны они мне?
+categories: ElegantObjects
 ---
 
 Элегантные Объекты([ElegantObjects](https://www.elegantobjects.org/)) - это ряд ограничений, которые собрал 
