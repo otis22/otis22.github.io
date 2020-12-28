@@ -20,6 +20,9 @@ plainwhite:
   html_lang: "ru" # set the lang attribute of the <html> tag for the pages. See here for a list of codes: https://www.w3schools.com/tags/ref_country_codes.asp
   analytics_id: "G-QCBRS6MJQ7"
   disqus_shortname: "otis22-github-io"
+  navigation:
+    - title: About me
+      url: "/about"
   condensed_mobile:
     #- home
     - page
@@ -48,6 +51,7 @@ plainwhite:
 
 # If you want to link only specific pages in your header, uncomment
 # this and add the path to the pages in order as they should show up
+
 #header_pages:
 # - about.md
 

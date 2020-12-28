@@ -11,7 +11,7 @@ permalink: /about/
 * [otis22/vetmanager-rest-api](https://github.com/otis22/vetmanager-rest-api) - пакет, делающий работу с VETMANAGER API более комфортной
 * [otis22/vetmanager-token](https://github.com/otis22/vetmanager-token) - пакет, для получения пользовательских токенов в VETMANAGER
 * [otis22/vetmanager-url](https://github.com/otis22/vetmanager-url) - пакет, для полного url программы в VETMANAGER по доменному имени
-* [publicjs](https://github.com/otis22/publicjs) - Пока есть скрипт, который позволяет размещать шаблоны и отчеты с кнопкой импорта в программу VETMANAGER
+* [publicjs](https://github.com/otis22/publicjs) - Тут есть скрипт, который позволяет размещать шаблоны и отчеты с кнопкой импорта в программу VETMANAGER
 * [dog-wheelchair](https://github.com/otis22/dog-wheelchair) - инвалидное кресло для маленькой собачки, 3д модели для печати на 3д принтере
 
 Я CTO в небольшой продуктовой компании - Ветменеджер. Приходится играть множество ролей, разбираться во всем понемногу. 
