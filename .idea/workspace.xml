@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5694b534-c4e8-48ff-8ed1-7743db593ccd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/about.md" beforeDir="false" afterPath="$PROJECT_DIR$/about.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/_drafts/2020-12-28-arpu-and-unit-economics.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/_drafts/2020-12-28-arpu-and-unit-economics.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +26,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/images/2020/12" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -53,7 +53,9 @@
       <workItem from="1608562429039" duration="307000" />
       <workItem from="1608574272386" duration="1392000" />
       <workItem from="1608843112205" duration="1347000" />
-      <workItem from="1609183084959" duration="3745000" />
+      <workItem from="1609183084959" duration="3838000" />
+      <workItem from="1609668294709" duration="748000" />
+      <workItem from="1609671607830" duration="2168000" />
     </task>
     <servers />
   </component>
