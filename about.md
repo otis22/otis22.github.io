@@ -3,7 +3,6 @@ layout: page
 title: About
 permalink: /about/
 ---
-
 ## Мой open source
 
 * [php-skeleton](https://github.com/otis22/php-skeleton) - репозиторий-шаблон для быстрого старта разработки небольших php пакетов с github actions и тестами
@@ -27,3 +26,5 @@ Ironman 70.3 и планирую стать полным железным.
 Пока живу в г. Никополь, Украина. 
 
 Люблю жену и собаку.
+
+[RSS](/feed.xml)
