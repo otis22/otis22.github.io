@@ -97,7 +97,7 @@ if ($admissionPostData && is_numeric($userId) && $userId > 0) {
     {
         return $this->isExistPostLength() ? $this->$data['admission_length'] : new \DateInterval($this->interval);
     }
-...
+```
 
 И попутно находим десяток багов при написании тестов. Получаем кайф от написания тестов.
 
