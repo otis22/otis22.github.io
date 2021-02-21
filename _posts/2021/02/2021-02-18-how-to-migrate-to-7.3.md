@@ -151,7 +151,7 @@ Processing took 6.4349660873413 seconds.
 
 ![for clients](/images/2021/02/for-clients.jpg)
 
-Один рабочий компьютер. Стажеры делили время на нём, этот хотел но не пришел, в итоге день простоя. Но нас это устраивало.
+Один рабочий компьютер. Стажеры делили время на нём, этот хотел но не пришел - часы простоя. Но нас это устраивало.
 
 
 ## Развитие
@@ -167,10 +167,10 @@ Processing took 6.4349660873413 seconds.
 Если работы много, она простая и однотипная, она несрочная - используйте стажеров. Стажеров сейчас полно. Совсем без опыта, обычно, они никому не нужны.
 
 ## Материалы:
-* [Ссылка на статью про историю архитектуры для пользователей](https://vetmanager.ru/blog/istoria-arkhitekturi-nashego-servisa?fbclid=IwAR2lEzrZJ4Np-_NTwKyDnhmokKf1u-Whky0VJ6iHSzKs2i62uen9Y34lOok)
 * [Архитектура высоких нагрузок](https://ruhighload.com/%D0%90%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0+%D0%B2%D1%8B%D1%81%D0%BE%D0%BA%D0%B8%D1%85+%D0%BD%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BE%D0%BA)
-* [Анализаторы кода](https://github.com/exakat/php-static-analysis-tools)
-* [Набор инструментов для перехода](https://auth0.com/blog/migrating-a-php5-app-to-7-part-three/#:~:text=The%20easiest%20and%20most%20obvious,by%20incorporating%20PHP%207%20features.)
+* [Анализаторы кода на любой вкус](https://github.com/exakat/php-static-analysis-tools)
+* [Другие инструменты для перехода](https://auth0.com/blog/migrating-a-php5-app-to-7-part-three/#:~:text=The%20easiest%20and%20most%20obvious,by%20incorporating%20PHP%207%20features.)
+* [Ссылка на статью про историю архитектуры для пользователей](https://vetmanager.ru/blog/istoria-arkhitekturi-nashego-servisa?fbclid=IwAR2lEzrZJ4Np-_NTwKyDnhmokKf1u-Whky0VJ6iHSzKs2i62uen9Y34lOok)
 
 
 
