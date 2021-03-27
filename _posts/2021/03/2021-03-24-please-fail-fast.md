@@ -14,7 +14,7 @@ categories: Казаки Гречкосеи Fragile Soft
 Сегодня на ревью увидел вот такое:
 
 ```php
- return ($this->valid()) 
+ return $this->valid() 
     ? $this->container[$this->position] 
     : [];
 ```
