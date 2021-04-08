@@ -119,13 +119,7 @@ assert(usageLevel(31) == 'warning', "Must be 'warning'");
 `$usagePower = -1`, класс чисел, которые ниже нашей границы. Мы ждем InvalidArgumentException, проверю так.
 
 ```php
-$weExpectIt = false;
-try {
-    usageLevel(-1);   
-} catch (InvalidArgumentException $e) {
-    $weExpectIt = true;
-}
-assert($weExpectIt, "Expected exception");
+expectException(InvalidArgumentException::class, fn() => usageLevel(-1));
 ```
 
 Аналогично проверим и класс чисел, которые выше границы `$usagePower = 101`
