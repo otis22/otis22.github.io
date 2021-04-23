@@ -10,6 +10,8 @@ categories: PhpVrnMeetup Тесты Деньги Пирамида
 
 ![logo-php-vrn](/images/2021/04/phpvrn.jpg)
 
+[3я встреча(там есть слайды)](https://phpvrn.github.io/2021/04/09/third-meetup.html)
+
 Мой доклад для тех, кто занимается коммерческой разработкой. 
 
 Тезисы: 
