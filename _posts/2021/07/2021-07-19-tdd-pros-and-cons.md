@@ -39,7 +39,7 @@ test first помогает лучше понять тот код который
 Программист без test first пишет: 
 
 ```php
-case 'get_three_devided_range':
+case 'get_divisible_by_three_range':
    $min = request('min');
    $max = request('max'); 
    $res = [];
@@ -56,9 +56,12 @@ case 'get_three_devided_range':
 Что тут уже тестировать? Только плакать, что тесты писать тяжело и больно. А мог бы быть вот такой код покрытый ассертами, который нестрашно рефакторить.
 
 ```php
-case 'get_three_devided_range':
+case 'get_divisible_by_three_range':
     json_response(
-        three_devided_range(10, 1)
+        divisible_by_three(
+            request('max'),
+            request('min')
+        )
     ); // ну там на сайт как-то вывести
 ```
 
