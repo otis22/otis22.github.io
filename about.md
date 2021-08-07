@@ -7,6 +7,7 @@ permalink: /about/
 
 * [php-skeleton](https://github.com/otis22/php-skeleton) - репозиторий-шаблон для быстрого старта разработки небольших php пакетов с github actions и тестами
 * [review-publisher](https://github.com/otis22/review-publisher) - ежедневно публикует коммиты с gitlab на ревью в slack. Разные репозитории в разные каналы, подсчет кол-ва строк по котрибуторам. Можно форкнуть и запустить на heroku
+* [otis22/reverso](https://github.com/otis22/reverso) - библиотека для работы с api reverso.context.net
 * [otis22/vetmanager-rest-api](https://github.com/otis22/vetmanager-rest-api) - php пакет, делающий работу с VETMANAGER API более комфортной
 * [otis22/vetmanager-token](https://github.com/otis22/vetmanager-token) - php пакет для получения пользовательских токенов в VETMANAGER
 * [otis22/vetmanager-url](https://github.com/otis22/vetmanager-url) - php пакет для получения полного url программы в VETMANAGER по доменному имени
