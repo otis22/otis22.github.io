@@ -69,3 +69,216 @@ class MyCoolClass {
 ```
 
 Ну и как бы все. Наш код уже можно тестировать прям по [инструкции guzzle](https://docs.guzzlephp.org/en/stable/testing.html) 
+
+Реальный сервер мы можем заменить своим фейковым, который будет отдавать те ответы, которые нам нужно. Только благодаря соблюдению принципа DIP нам в принципе удалось написать тесты. 
+
+```php
+$mock = new MockHandler([
+    new Response(200, [], $testJsonAnswer),
+
+]);
+
+$client = new Client(['handler' => HandlerStack::create($mock)]);
+
+$myCool = new MyCoolClass($client);
+#пишем любые ассерты
+$this->assert...
+```
+
+Но наш код делает слишком много, мы это увидим когда будем писать тесты, сами тесты будут выглядеть очень страшно. Класс и валидирует и отправляет запросы. Еще и ответ как-то преобразовать в более удобный формат нужно. 
+
+В своей версии решения этой задачи я разделил класс `MyCoolClass` на разные сущности. Я выделил такие классы как "Слово", "Язык", "Контекст", ... 
+
+Приведу примеры: 
+
+Нам в нашей задаче требуется валидировать язык, этим занимается сущность 
+
+```php
+final class Language implements Stringify
+{
+    ...
+    public function __construct(string $language)
+    {
+        $this->language = $language;
+    }
+
+    public function asString(): string
+    {
+        if (!in_array($this->language, $this->validLanguagesList)) {
+            throw new \InvalidArgumentException($messag);
+        }
+        return $this->language;
+    }
+}
+```
+
+Код теста максимально простой
+
+```php
+$sut = new Language('klingon');
+$this->expectException(\InvalidArgumentException::class);
+$sut->asString();
+```
+
+Аналогично я поступил и с "Словом", выделил для него свой класс.
+
+```php
+$sut = new Word('this is a test phrase');
+$this->expectException(\InvalidArgumentException::class);
+$sut->asString();
+```
+
+Но у меня появилась проблема. Мой классный класс принимает слишком много аргументов в конструктор. 
+
+```php
+class MyCoolClass {
+
+    public function __construct(Language $from, Language $to, Word, $word, ClientInterface $clint)
+}
+```
+
+Пытаюсь понять как исправить? Я беру близкие по смыслу сущности "Языки" и "Слово" и агрегирую их в одну ["Перевод"](https://github.com/otis22/reverso/blob/master/src/Translation.php). Сразу же на эту сущность накладываю обязанность формировать "body" запроса. 
+
+Я протестировал еще один кусок логики. 
+
+```php
+$this->assertEquals(
+    (
+        new Translation(
+            new Language("en"),
+            new Language('ru'),
+            new Word("test")
+        )
+    )->asArray()['source_text'],
+    "test"
+);
+```
+
+Дальше уже точно вкусовщина, но я попытаюсь объяснить почему я пошел по этому пути. 
+
+Вместо класса `MyCoolClass` или какого-то `ReversoGateway` я создал класс [`Context`](https://github.com/otis22/reverso/blob/master/src/Context.php), который занимается обработкой ответа сервера и предоставляет удобный интерфейс к ответу. У класса есть один основной конструктор, который принимает ассоциативный массив ответа.
+
+Вот такой простой тесты у меня получился. 
+
+```php 
+$this->assertEquals(
+    'example',
+    (
+        new Context(
+            json_decode(
+                $this->ruToEngTranslateWordPrimerResponse,
+                true
+            )
+        )
+    )->firstInDictionary()
+);
+```
+
+Дальше я использую вторичный конструктор. К сожалению в php не работает классическая перегрузка методов и мы не можем написать несколько раз один метод с разными сигнатурами. Поэтому я делаю это по пхпшному, через статический метод. 
+
+```php
+public static function fromTranslation(ClientInterface $client, Translation $translation): self
+{
+    return new self(
+        json_decode(
+            $client->request(
+                "POST",
+                "/bst-query-service",
+                [
+                    'headers' =>  [
+                        "User-Agent" => "Mozilla/5.0",
+                        "Content-Type" => "application/json; charset=UTF-8"
+                    ],
+                    'body' => json_encode(
+                        $translation->asArray()
+                    ),
+                ]
+            )->getBody()->getContents(),
+            true,
+            JSON_THROW_ON_ERROR
+        )
+    );
+}
+```
+
+И тоже могу написать юнит тест, без реального сервера который проверит этот метод. 
+
+```php
+$mock = new MockHandler(
+    [
+        new Response(
+            200,
+            [],
+            $this->ruToEngTranslateWordPrimerResponse
+        )
+    ]
+);
+$sut = Context::fromTranslation(
+    new Client(['handler' => HandlerStack::create($mock)]),
+    new Translation(
+        new Language("en"),
+        new Language('ru'),
+        new Word("test")
+    )
+);
+$this->assertEquals(
+    "example",
+    $sut->firstInDictionary()
+);
+```
+
+**Будьте осторожны**, у меня класс контекст делает один простой запрос к серверу. Поэтому я решился оставить его в вторичном конструкторе. В вашей ситуации возможно потребуется отдельный класс вроде `ReversoGateway` который будет делать более сложные запросы и отдавать экземпляры класса `Context` которые будут заниматься исключительно обработкой.
+
+Дальше я посмотрел на интерфейс моего класса, конечно это не удобно для клиентов библиотеки. Никто не захочет так возиться. 
+
+```php
+$sut = Context::fromTranslation(
+    new Client(['handler' => HandlerStack::create($mock)]),
+    new Translation(
+        new Language("en"),
+        new Language('ru'),
+        new Word("test")
+    )
+);
+```
+
+Поэтому я сделал еще один вторичный конструктор, который внутри заниматься оборачиванием голых данных. 
+
+```php
+public static function fromLanguagesAndWord(string $languageFrom, string $languageTo, string $word): self
+{
+    return self::fromTranslation(
+        new Client(['base_uri' => 'https://context.reverso.net/translation']),
+        new Translation(
+            new Language($languageFrom),
+            new Language($languageTo),
+            new Word($word)
+        )
+    );
+}
+```
+
+В самую последнюю очередь я написал один интеграционный тест, который работает с реальным сервером.
+
+```php
+$this->assertEquals(
+    "example",
+    Context::fromLanguagesAndWord("ru", "en", "пример")
+        ->firstInDictionary()
+);
+```
+
+В итоге я получил код, в котором все изначальные требования покрыты юнит тестами. Код не страшно расширять и рефакторить. Тесты дают уверенность, что расширяя и измення код мы его не сломаем. SRP дает надежду, что каждое отдельное изменение не будет затрагивать большую часть классов, а значить они и не могут быть сломаны. И интерфейс библиотеки получился удобным для конечного потребителя: 
+
+```php
+use Otis22\Reverso\Context;
+
+$context = Context::fromLanguagesAndWord("ru", "en", "пример");
+
+$context->firstInDictionary(); # return "example" word, because it is the most popular variant in the reverso.net
+
+$context->dictionary(); #return synonyms array ['example', 'sample', 'case', ...]
+
+$context->examples(); #return examples sentences
+```
+
