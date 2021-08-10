@@ -70,7 +70,7 @@ class MyCoolClass {
 
 Ну и как бы все. Наш код уже можно тестировать прям по [инструкции guzzle](https://docs.guzzlephp.org/en/stable/testing.html) 
 
-Реальный сервер мы можем заменить своим фейковым, который будет отдавать те ответы, которые нам нужно. Только благодаря соблюдению принципа DIP нам в принципе удалось написать тесты. 
+Реальный сервер мы можем заменить своим фейковым, который будет отдавать те ответы, которые нам нужно. Только благодаря соблюдению принципа DIP нам уже удалось написать тесты. 
 
 ```php
 $mock = new MockHandler([
@@ -91,7 +91,7 @@ $this->assert...
 
 Приведу примеры: 
 
-Нам в нашей задаче требуется валидировать язык, этим занимается сущность 
+Нам в нашей задаче требуется валидировать язык, этим занимается сущность "Язык"
 
 ```php
 final class Language implements Stringify
@@ -105,7 +105,7 @@ final class Language implements Stringify
     public function asString(): string
     {
         if (!in_array($this->language, $this->validLanguagesList)) {
-            throw new \InvalidArgumentException($messag);
+            throw new \InvalidArgumentException(...);
         }
         return $this->language;
     }
@@ -281,4 +281,6 @@ $context->dictionary(); #return synonyms array ['example', 'sample', 'case', ...
 
 $context->examples(); #return examples sentences
 ```
+
+P.S. Если у вас не получается написать тесты или тесты получаются громоздкими, то скорее всего вашим код тяжело переиспользовать. Ведь тесты - это частный случай переиспользования кода. 
 
