@@ -132,8 +132,9 @@ $sut->asString();
 
 ```php
 class MyCoolClass {
-
-    public function __construct(Language $from, Language $to, Word, $word, ClientInterface $clint)
+    ...
+    public function __construct(Language $from, Language $to, Word, $word, ClientInterface $client)
+    ...
 }
 ```
 
