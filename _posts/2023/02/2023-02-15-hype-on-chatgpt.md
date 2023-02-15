@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Хайпую на ChatGPT
-categories: ChatGPT DIP
+categories: ChatGPT Unit Testing
 ---
 
 Решил вернуться к блогу и улыбнулся, последний мой пост был ровно 1 год и 1 день назад. 
