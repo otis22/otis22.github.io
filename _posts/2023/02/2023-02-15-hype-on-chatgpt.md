@@ -24,7 +24,7 @@ categories: ChatGPT Unit Testing
 $from, $to - это название валюты из списка USD, EUR, RUR
 $amount - сумма которую собираются обменять.
 
-Библиотеку можно установить чере composer require.
+Библиотеку можно установить через composer require.
 ```
 
 Получается вот такой код: 
