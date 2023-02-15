@@ -97,7 +97,7 @@ class ExchangeText extends PHPUnit\Framework\TestCase
 				/*тут бот вставил необходимый формат */
 			]);
 
-		$exchange = new Exchange('UAH', 'USD', 100, $mockDataFetcher);
+		$exchange = new ExchangedAmount('UAH', 'USD', 100, $mockDataFetcher);
 		$this->assertEquals(3.84, $exchange->toDecimal());
 	}
 }
