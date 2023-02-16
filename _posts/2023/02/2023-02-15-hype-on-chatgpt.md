@@ -82,7 +82,7 @@ class ExchangedAmount
 
 ```php
 
-class ExchangeText extends PHPUnit\Framework\TestCase 
+class ExchangedAmountTest extends PHPUnit\Framework\TestCase 
 {
 	public function testToDecimal() 
 	{
