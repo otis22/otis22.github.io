@@ -89,7 +89,7 @@ final readonly class Latest
     public function testLatestTimestampWithValidResponse(): void
     {
         $handlerStack = HandlerStack::create(
-            new MockHandler([new Response(200, [], $this->validJson())])
+            new MockHandler([new Response(200, [], $this->validStringJson())])
         );
         $this->assertEquals(
             1678741200,
