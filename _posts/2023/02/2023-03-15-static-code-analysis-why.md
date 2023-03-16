@@ -15,7 +15,7 @@ categories: phpstan static code analysis
 
 Для статьи я придумал несложный, но очень важный проект. 
 
-Мы будем ходить в API ЦБ РФ по этому адресу и получать json. 
+Мы будем ходить в API ЦБ РФ по этому [адресу](https://www.cbr-xml-daily.ru/latest.js) и получать json. 
 
 ```json
 {
