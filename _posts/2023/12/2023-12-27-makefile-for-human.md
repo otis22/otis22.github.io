@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Makefile для людей
+title: Makefile для людей, а не для роботов
 categories: CI, Разработка, Инструменты
 ---
 
@@ -10,7 +10,7 @@ categories: CI, Разработка, Инструменты
 
 Я может и сам иногда так грешу, но считаю, что лучше так не делать. Эти файлы для людей, а не для машин. 
 
-`make init`, `make up`, `make tests` - прекрасное сокращение для человека. Нам не нужно каждый раз писать что-то длинное типа `docker compose run --rm api-php-cli composer test -- --testsuite=unit`. У машины нет ограничений в скорости печати или памяти, мы можем в конфиг CI написать полную команду для запуска тестов `docker compose run --rm api-php-cli /app/vendor/bin/phpunit --colors=always`. 
+`make init`, `make up`, `make tests` - прекрасное сокращение для человека. Нам не нужно каждый раз писать что-то длинное типа `docker compose run --rm api-php-cli composer test -- --testsuite=unit`. А у машины нет ограничений в скорости печати или памяти, мы можем в конфиг CI написать полную команду для запуска тестов `docker compose run --rm api-php-cli /app/vendor/bin/phpunit --colors=always`. Делайт так, не тяните make команды в места, которые запускаются роботом.
 
 ## Что это нам даёт? 
 
