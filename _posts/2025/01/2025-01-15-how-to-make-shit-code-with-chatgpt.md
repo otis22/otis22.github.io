@@ -93,3 +93,87 @@ def kwikbi_price(user_limit):
 ### Итог
 
 ChatGPT действительно справляется с превращением кода в говно. Разрабатываю аналитические скрипты в Jupyter Notebook не думая про ограничения и легко их переношу в Redash. Пора уже в Redash встроить опцию в редакторе - "сделать говно".
+
+### Дополнительный пример
+
+Из такого, сделает:
+
+```
+def monthly_revenue(user_limit, is_on_voip, is_on_mobile, is_on_kwikbi):
+    revenue = users_price(user_limit)
+    if is_on_voip:
+        revenue = revenue + voip_price(user_limit)
+    if is_on_mobile:
+        revenue = revenue + mobile_price(user_limit)
+    if is_on_kwikbi:
+        revenue = revenue + kwikbi_price(user_limit)
+    return revenue
+```
+
+Вот это: 
+
+```
+def monthly_revenue(user_limit, is_on_voip, is_on_mobile, is_on_kwikbi):
+    # Определение тарифа
+    if user_limit == 1:
+        grade = 'solo'
+    elif 2 <= user_limit <= 5:
+        grade = 'clinic'
+    elif 6 <= user_limit <= 19:
+        grade = 'clinic_plus'
+    elif user_limit >= 20:
+        grade = 'clinic_network'
+
+    # Расчет стоимости пользователей
+    if grade == 'solo':
+        users_cost = 728 * user_limit
+    elif grade == 'clinic':
+        users_cost = 632 * user_limit
+    elif grade == 'clinic_plus':
+        users_cost = 426 * user_limit
+    elif grade == 'clinic_network':
+        users_cost = 374 * user_limit
+
+    # Добавление стоимости VoIP
+    if is_on_voip:
+        if grade == 'solo':
+            voip_cost = 101
+        elif grade == 'clinic':
+            voip_cost = 271
+        elif grade == 'clinic_plus':
+            voip_cost = 925
+        elif grade == 'clinic_network':
+            voip_cost = 1817
+    else:
+        voip_cost = 0
+
+    # Добавление стоимости Mobile
+    if is_on_mobile:
+        if grade == 'solo':
+            mobile_cost = 101
+        elif grade == 'clinic':
+            mobile_cost = 271
+        elif grade == 'clinic_plus':
+            mobile_cost = 925
+        elif grade == 'clinic_network':
+            mobile_cost = 1817
+    else:
+        mobile_cost = 0
+
+    # Добавление стоимости KwikBi
+    if is_on_kwikbi:
+        if grade == 'solo':
+            kwikbi_cost = 400
+        elif grade == 'clinic':
+            kwikbi_cost = 800
+        elif grade == 'clinic_plus':
+            kwikbi_cost = 2400
+        elif grade == 'clinic_network':
+            kwikbi_cost = 5600
+    else:
+        kwikbi_cost = 0
+
+    # Общая месячная выручка
+    revenue = users_cost + voip_cost + mobile_cost + kwikbi_cost
+    return revenue
+```
