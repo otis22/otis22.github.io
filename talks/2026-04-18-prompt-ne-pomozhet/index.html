@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Промпт не поможет. Как жить с ИИ.</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+<style>
+.reveal { font-family: 'Segoe UI', 'Noto Sans', Arial, sans-serif; }
+.reveal h1 { font-size: 2.2em; }
+.reveal h1.big { font-size: 3.5em; text-transform: uppercase; }
+.reveal h2 { font-size: 1.8em; }
+.reveal h3 { font-size: 1.4em; margin-bottom: 0.5em; }
+.reveal ul { text-align: left; display: inline-block; }
+.reveal li { margin: 0.3em 0; font-size: 0.85em; }
+.reveal li.bold { font-weight: bold; }
+.reveal p { font-size: 0.9em; }
+.two-col { display: flex; align-items: center; gap: 2em; }
+.col-img { flex: 0 0 35%; }
+.col-img img { max-width: 100%; max-height: 70vh; border-radius: 8px; object-fit: contain; }
+.col-text { flex: 1; text-align: left; }
+.slide-img { max-width: 80%; max-height: 65vh; margin-top: 0.5em; border-radius: 8px; object-fit: contain; }
+.reveal section { text-align: center; }
+
+/* Overlay text on background images */
+.bg-text { position: absolute; top: 3%; left: 3%; background: rgba(40,40,40,0.45); padding: 0.3em 0.8em; border-radius: 8px; color: #fff; font-size: 1.2em; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); z-index: 1; }
+.bg-text-bottom { position: absolute; bottom: 5%; left: 3%; background: rgba(40,40,40,0.45); padding: 0.3em 0.8em; border-radius: 8px; color: #fff; font-size: 1.2em; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); z-index: 1; }
+
+/* Kalashnikov slides */
+.kal-slide .col-img { flex: 0 0 25%; }
+.kal-list { list-style: disc; }
+.kal-item { transition: color 0.3s, opacity 0.3s; margin: 0.4em 0; font-size: 0.9em; }
+.kal-item.active { color: #fff; opacity: 1; font-weight: bold; font-size: 1em; }
+.kal-item.dimmed { color: #888; opacity: 0.7; font-weight: normal; }
+
+/* Agent chain */
+.agent-chain { text-align: center; margin-top: 1em; }
+.agent-chain p { margin: 0.6em 0; }
+.agent-chain .lvl1 { font-size: 1.4em; color: #4fc3f7; }
+.agent-chain .lvl2 { font-size: 1.1em; color: #81c784; }
+.agent-chain .lvl3 { font-size: 0.9em; color: #aaa; font-style: italic; }
+
+/* Terminal / Claude report */
+.terminal { background: #1a1a2e; border: 1px solid #444; border-radius: 8px; padding: 1em 1.5em; text-align: left; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.7em; color: #0f0; max-width: 90%; margin: 0.5em auto; }
+.terminal .prompt { color: #888; }
+.terminal .error { color: #f44; }
+.terminal .warn { color: #ff0; }
+.claude-report { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 1px solid #4fc3f7; border-radius: 12px; padding: 1.2em 1.5em; text-align: left; font-size: 0.75em; max-width: 85%; margin: 0.5em auto; color: #cdd6f4; }
+.claude-report .header { color: #4fc3f7; font-weight: bold; margin-bottom: 0.5em; font-size: 1.1em; }
+.claude-report .ok { color: #a6e3a1; }
+.claude-report .skip { color: #fab387; }
+
+/* Code block */
+.code-block { background: #1e1e2e; border-radius: 8px; padding: 0.8em 1.2em; text-align: left; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.65em; color: #cdd6f4; max-width: 90%; margin: 0.5em auto; overflow-x: auto; }
+.code-block .keyword { color: #cba6f7; }
+.code-block .string { color: #a6e3a1; }
+.code-block .comment { color: #6c7086; font-style: italic; }
+.code-block .fn { color: #89b4fa; }
+.code-block .var { color: #f38ba8; }
+
+/* Comparison table */
+.comparison-table { font-size: 0.7em; margin: 0 auto; border-collapse: collapse; }
+.comparison-table th, .comparison-table td { padding: 0.4em 0.8em; border-bottom: 1px solid #444; text-align: center; }
+.comparison-table th { color: #4fc3f7; }
+.comparison-table td:first-child { text-align: left; }
+.comparison-table .total td { border-top: 2px solid #4fc3f7; font-weight: bold; font-size: 1.2em; }
+.comparison-table .ellipsis td { color: #555; font-style: italic; border: none; }
+.comparison-table .winner { color: #a6e3a1; font-weight: bold; }
+
+/* Quote */
+blockquote { border-left: 4px solid #f44; padding: 0.5em 1em; margin: 0.8em auto; background: rgba(244,68,68,0.1); border-radius: 0 8px 8px 0; font-style: italic; text-align: left; max-width: 85%; }
+
+/* Two-column green/red lists */
+.split-cols { display: flex; gap: 2em; justify-content: center; }
+.split-cols .col { flex: 1; text-align: left; max-width: 45%; }
+.split-cols .col h4 { margin-bottom: 0.5em; }
+.green li { color: #a6e3a1; }
+.green li::marker { content: "✅ "; }
+.red li { color: #f38ba8; }
+.red li::marker { content: "❌ "; }
+
+/* Subtitle / comment */
+.subtitle { color: #888; font-size: 0.7em; font-style: italic; margin-top: 0.5em; }
+.label-was { display: inline-block; color: #888; font-size: 0.6em; border: 1px solid #555; border-radius: 4px; padding: 0.1em 0.5em; margin-top: 1em; text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* Two images side by side */
+.two-images { display: flex; gap: 1em; justify-content: center; align-items: center; }
+.two-images img { max-height: 55vh; max-width: 48%; border-radius: 8px; object-fit: contain; }
+
+/* PDF export tweaks */
+@media print {
+  .reveal .slides section { page-break-after: always; }
+  .kal-item.dimmed { opacity: 0.4; color: #999; }
+  .reveal .slides section img { max-height: 60vh !important; }
+  .bg-text { position: relative; top: auto; left: auto; display: block; margin-bottom: 0.5em; }
+  .bg-text-bottom { position: relative; bottom: auto; left: auto; display: block; margin-top: 0.5em; }
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- 1. Title -->
+<section>
+<h1>Промпт не поможет</h1>
+<h3>🤖 Как жить с ИИ</h3>
+</section>
+
+<!-- 2. About me -->
+<section>
+<h3>Обо мне</h3>
+<div class="two-col">
+<div class="col-img"><img src="img/slide02_1.png" alt=""></div>
+<div class="col-text">
+<ul>
+<li>Владимир Романичев</li>
+<li>Вайбкодер 🤙</li>
+</ul>
+</div></div>
+</section>
+
+<!-- 3. А ты? -->
+<section>
+<h3>А ты? 🫵</h3>
+<img src="img/slide03_1.png" alt="" style="height:55vh; border-radius:8px; image-rendering:auto;">
+</section>
+
+<!-- 4. Выводы -->
+<section>
+<h3>Выводы 🎯</h3>
+<p>Промпт не поможет</p>
+<p>ИИ не сделает из тебя инженера</p>
+</section>
+
+<!-- 5. Full-screen image -->
+<section data-background-image="img/slide05_1.png" data-background-size="contain" data-background-color="#000">
+</section>
+
+<!-- 6. Kalashnikov INTRO — new canonical order, Системное мышление last -->
+<section class="kal-slide">
+<h3>Калашников Михаил Тимофеевич</h3>
+<div class="two-col">
+<div class="col-img"><img src="img/slide06_1.png" alt=""></div>
+<div class="col-text"><ul class="kal-list">
+<li class="kal-item active">Ответственность за последствия</li>
+<li class="kal-item active">Проектирование перед действием</li>
+<li class="kal-item active">Ясная формулировка задач</li>
+<li class="kal-item active">Проверяемость и измеримость</li>
+<li class="kal-item active">Управление сложностью</li>
+<li class="kal-item active">Процессы вместо героизма</li>
+<li class="kal-item active">Системное мышление</li>
+</ul></div></div>
+</section>
+
+<!-- 7. Шины -->
+<section>
+<h3>Шины от Алексея Варенникова 🛞</h3>
+<div class="two-col">
+<div class="col-img"><img src="img/slide07_1.png" alt=""></div>
+<div class="col-text">
+<ul>
+<li>Навайбкодил студент за пиво 🍺</li>
+<li>Появились деньги на программистов и ИИ</li>
+</ul>
+</div></div>
+</section>
+
+<!-- 8a. Было, стало (part 1) -->
+<section>
+<h3>Было, стало 🔄</h3>
+<ul>
+<li>От решения задач → к <strong>постановке задач</strong></li>
+<li>От «писателя кода» → к <strong>«архитектору и редактору»</strong></li>
+<li>От знания синтаксиса → к <strong>пониманию систем</strong></li>
+</ul>
+</section>
+
+<!-- 8b. Агент смотрит -->
+<section>
+<h3>Агент смотрит как ты пишешь код 👀</h3>
+<img src="img/agent-watching.gif" alt="" style="max-height:60vh; border-radius:12px;">
+</section>
+
+<!-- 8c. Агентская цепочка -->
+<section>
+<div class="agent-chain">
+<p class="lvl1">🧑‍💻 программист управляет агентом, <em>который пишет код</em></p>
+<p class="lvl2">🧑‍💻 → 🤖 программист управляет агентом, который управляет агентом, <em>который пишет код</em></p>
+<p class="lvl3">🧑‍💻 → 🤖 → 🤖 → 🤖 → …</p>
+</div>
+</section>
+
+<!-- 9-10. МНОГО/ОЧЕНЬ МНОГО КОДА -->
+<section><h1 class="big">МНОГО КОДА 📦</h1></section>
+<section><h1 class="big">ОЧЕНЬ МНОГО КОДА 📦📦📦</h1></section>
+
+<!-- 11. Нас всех уволят? -->
+<section><h2>Нас всех уволят? 😱</h2></section>
+
+<!-- 12-15. Image slides with overlay text -->
+<section data-background-image="img/slide12_1.png" data-background-size="contain" data-background-color="#000">
+<h3 class="bg-text">Очень много кода — это проблема</h3>
+</section>
+<section data-background-image="img/slide13_1.png" data-background-size="contain" data-background-color="#000">
+</section>
+<section data-background-image="img/slide14_1.png" data-background-size="contain" data-background-color="#000">
+</section>
+<section data-background-image="img/slide15_1.png" data-background-size="contain" data-background-color="#000">
+</section>
+
+<!-- 16. Kalashnikov — Ответственность -->
+<section class="kal-slide">
+<h3>Калашников Михаил Тимофеевич</h3>
+<div class="two-col">
+<div class="col-img"><img src="img/slide16_1.png" alt=""></div>
+<div class="col-text"><ul class="kal-list">
+<li class="kal-item active">Ответственность за последствия</li>
+<li class="kal-item dimmed">Проектирование перед действием</li>
+<li class="kal-item dimmed">Ясная формулировка задач</li>
+<li class="kal-item dimmed">Проверяемость и измеримость</li>
+<li class="kal-item dimmed">Управление сложностью</li>
+<li class="kal-item dimmed">Процессы вместо героизма</li>
+<li class="kal-item dimmed">Системное мышление</li>
+</ul></div></div>
+</section>
+
+<!-- 17. Наши знания нужны -->
+<section data-background-image="img/slide17_1.png" data-background-size="contain" data-background-color="#000">
+<h3 class="bg-text">Наши знания и навыки нужны 💪</h3>
+</section>
+
+<!-- 18. 2 Путя -->
+<section>
+<h3>2 Путя 🔀</h3>
+<ul>
+<li>ИИ — джун</li>
+<li>ИИ — команда</li>
+</ul>
+<p class="subtitle">⚠️ Устареют оба</p>
+</section>
+
+<!-- 19. ИИ - Джун -->
+<section>
+<h3>ИИ — Джун 🧑‍💻</h3>
+<ul>
+<li>Декомпозируем задачу в уме + режим Ask</li>
+<li>Каждый шаг обсуждаем с ИИ</li>
+<li>Все изменения через режим планирования</li>
+<li>Есть сомнения в результате — делаем сами</li>
+</ul>
+</section>
+
+<!-- 20. Kalashnikov — Проектирование -->
+<section class="kal-slide">
+<h3>Калашников Михаил Тимофеевич</h3>
+<div class="two-col">
+<div class="col-img"><img src="img/slide20_1.png" alt=""></div>
+<div class="col-text"><ul class="kal-list">
+<li class="kal-item dimmed">Ответственность за последствия</li>
+<li class="kal-item active">Проектирование перед действием</li>
+<li class="kal-item dimmed">Ясная формулировка задач</li>
+<li class="kal-item dimmed">Проверяемость и измеримость</li>
+<li class="kal-item dimmed">Управление сложностью</li>
+<li class="kal-item dimmed">Процессы вместо героизма</li>
+<li class="kal-item dimmed">Системное мышление</li>
+</ul></div></div>
+</section>
+
+<!-- 21. ИИ - Команда (overlay) -->
+<section data-background-image="img/slide21_1.png" data-background-size="contain" data-background-color="#000">
+<h3 class="bg-text">ИИ — Команда, не совсем вайбкодинг</h3>
+</section>
+
+<!-- 22. ИИ - Команда - HLV -->
+<section>
+<h3>ИИ — Команда — HLV</h3>
+<img src="img/slide22_1.png" alt="" class="slide-img">
+</section>
+
+<!-- 23. Вайбкодинг для чайников — QR bigger, link styled -->
+<section>
+<h3>Вайбкодинг для чайников 📚</h3>
+<div class="two-col">
+<div class="col-text">
+<ul>
+<li>📄 <code>AGENTS.md</code> — правила workflow</li>
+<li>🗺️ <code>Roadmap.md</code> — очередь работ</li>
+<li>📋 <code>PRD/</code> — описания задач</li>
+<li>📝 <code>AssumptionLog.md</code> — допущения и решения</li>
+<li>📦 <code>artifacts/</code> — исходные материалы</li>
+</ul>
+<p style="margin-top:1em;font-size:0.65em;"><a href="https://github.com/otis22/workflow-test-project/" style="color:#4fc3f7;">github.com/otis22/workflow-test-project</a></p>
+</div>
+<div style="flex:0 0 30%;text-align:center;"><img src="img/slide23_1.png" alt="QR" style="width:100%;border-radius:8px;"></div>
+</div>
+</section>
+
+<!-- 24-25. Screenshots -->
+<section data-background-image="img/slide24_1.png" data-background-size="contain" data-background-color="#000">
+</section>
+<section data-background-image="img/slide25_1.png" data-background-size="contain" data-background-color="#000">
+</section>
+
+<!-- 26. Core Loop -->
+<section>
+<h3>Core Loop агента 🔁</h3>
+<ul>
+<li>1. 📌 Выбрать задачу</li>
+<li>2. 🧪 Написать тесты</li>
+<li>3. 🔴 <span style="color:#f44;">Red</span> → 🟢 <span style="color:#4caf50;">Green</span></li>
+<li>4. ✅ Запустить все проверки</li>
+<li>5. 🚀 Commit &amp; Push</li>
+</ul>
+<p style="color:#f44; margin-top:0.8em; font-weight:bold;">🚫 Запрещено: писать код без тестов, пушить без прохождения проверок</p>
+</section>
+
+<!-- 27. Кто победил? -->
+<section><h2>Кто победил? 🏆</h2></section>
+
+<!-- 28. Comparison table -->
+<section>
+<h3>Оценка реализаций (1–10)</h3>
+<table class="comparison-table">
+<thead>
+<tr><th>#</th><th>Критерий</th><th>Claude Opus</th><th>Codex GPT-5.4</th><th>Claude+Codex</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Работоспособность</td><td>7</td><td>8</td><td>8</td></tr>
+<tr class="ellipsis"><td></td><td colspan="4">…</td></tr>
+<tr style="background:rgba(255,255,255,0.05)"><td>3</td><td><strong>Архитектура</strong></td><td style="color:#f44">4</td><td style="color:#f44">3</td><td class="winner">9</td></tr>
+<tr class="ellipsis"><td></td><td colspan="4">…</td></tr>
+<tr><td>7</td><td>Workflow агента</td><td>5</td><td class="winner">9</td><td class="winner">9</td></tr>
+<tr class="total"><td></td><td>ИТОГО</td><td>41</td><td>51</td><td class="winner">57 🏆</td></tr>
+</tbody>
+</table>
+<p style="font-size:0.5em;color:#888;margin-top:1em;">7 критериев × 10 баллов = 70 макс.</p>
+</section>
+
+<!-- 29. Какие проблемы? (fixed wording) -->
+<section>
+<h3>Какие проблемы? 🐛</h3>
+<ul>
+<li><strong>Codex GPT-5.4</strong> — нет Domain-слоя, всё на Eloquent</li>
+<li><strong>Claude+Codex</strong> — полноценный Domain, изолирован от фреймворка ✅</li>
+<li><strong>Claude Opus</strong> — …</li>
+</ul>
+</section>
+
+<!-- 30. Claude Opus -->
+<section>
+<h3>Claude Opus 🤖</h3>
+<p style="text-align:left;max-width:85%;margin:0 auto;">Полноценный Domain слой с entities, value objects, бизнес-правилами. Написаны unit-тесты. А Application слой <strong style="color:#f44">полностью его игнорирует</strong> и работает с Eloquent Models напрямую.</p>
+<img src="img/slide29_1.png" alt="" class="slide-img" style="max-height:40vh">
+</section>
+
+<!-- 31. Агент не виновен -->
+<section>
+<h3>Агент не виновен 🤷</h3>
+<p>Прошу чистую архитектуру и всё, всё, всё...</p>
+<p style="font-size:0.7em;color:#888;">А в том же ТЗ:</p>
+<blockquote>
+«Решения должны быть достаточно простыми для MVP и не перегружены преждевременной абстракцией.»
+</blockquote>
+<p style="font-size:0.8em; margin-top:0.5em;">🤦 Сам себе противоречу</p>
+</section>
+
+<!-- 32. Kalashnikov — Ясная формулировка -->
+<section class="kal-slide">
+<h3>Калашников Михаил Тимофеевич</h3>
+<div class="two-col">
+<div class="col-img"><img src="img/slide31_1.png" alt=""></div>
+<div class="col-text"><ul class="kal-list">
+<li class="kal-item dimmed">Ответственность за последствия</li>
+<li class="kal-item dimmed">Проектирование перед действием</li>
+<li class="kal-item active">Ясная формулировка задач</li>
+<li class="kal-item dimmed">Проверяемость и измеримость</li>
+<li class="kal-item dimmed">Управление сложностью</li>
+<li class="kal-item dimmed">Процессы вместо героизма</li>
+<li class="kal-item dimmed">Системное мышление</li>
+</ul></div></div>
+</section>
+
+<!-- 33. NEW: Опыт в команде -->
+<section>
+<h3>Опыт в команде 👥</h3>
+<div class="split-cols" style="margin-top:1em;">
+<div class="col" style="text-align:center;">
+<p style="font-size:3em;">🚀</p>
+<p style="color:#a6e3a1; font-size:1.3em; font-weight:bold;">×10 быстрее</p>
+<p style="font-size:0.75em; color:#aaa;">Стандартный лимит токенов<br>Чёткие задачи → чёткий результат</p>
+</div>
+<div class="col" style="text-align:center;">
+<p style="font-size:3em;">🐌</p>
+<p style="color:#f38ba8; font-size:1.3em; font-weight:bold;">×10 лимит превышен</p>
+<p style="font-size:0.75em; color:#aaa;">Агенты «тупые и ничего не могут»<br>Размытые задачи → бесконечные итерации</p>
+</div>
+</div>
+<p style="margin-top:1.2em; font-size:1.1em; color:#4fc3f7;">Всё дело в умении формулировать задачу</p>
+</section>
+
+<!-- 34. Kalashnikov — Проверяемость -->
+<section class="kal-slide">
+<h3>Калашников Михаил Тимофеевич</h3>
+<div class="two-col">
+<div class="col-img"><img src="img/slide32_1.png" alt=""></div>
+<div class="col-text"><ul class="kal-list">
+<li class="kal-item dimmed">Ответственность за последствия</li>
+<li class="kal-item dimmed">Проектирование перед действием</li>
+<li class="kal-item dimmed">Ясная формулировка задач</li>
+<li class="kal-item active">Проверяемость и измеримость</li>
+<li class="kal-item dimmed">Управление сложностью</li>
+<li class="kal-item dimmed">Процессы вместо героизма</li>
+<li class="kal-item dimmed">Системное мышление</li>
+</ul></div></div>
+</section>
+
+<!-- 35. Пирамида тестирования -->
+<section>
+<h3>Пирамида тестирования</h3>
+<img src="img/slide33_1.png" alt="" class="slide-img">
+</section>
+
+<!-- 36. Кубок тестирования — 2 images -->
+<section>
+<h3>Кубок(???) тестирования вместо пирамиды</h3>
+<div class="two-images">
+<img src="img/slide34_1.png" alt="">
+<img src="img/slide34_2.png" alt="">
+</div>
+</section>
+
+<!-- 37. Кирпич тестирования — full background -->
+<section data-background-image="img/slide35_1.png" data-background-size="contain" data-background-color="#000">
+</section>
+
+<!-- 38. Тесты — БЫЛО (no heading, just text) -->
+<section>
+<p style="font-size:1.2em;">Тесты нужно писать, только тогда,</p>
+<p style="font-size:1.2em;">когда их дорого не писать.</p>
+<p style="font-size:0.75em; color:#aaa;">Или писать на своих pet проектах.</p>
+<p style="display:inline-block; color:#f44; font-size:0.7em; border:2px solid #f44; border-radius:4px; padding:0.15em 0.6em; margin-top:1em; text-transform:uppercase; letter-spacing:0.1em;">🗑️ устарело</p>
+</section>
+
+<!-- 39. Тесты нужно писать! -->
+<section>
+<h2>Тесты нужно писать! ✍️</h2>
+<ul>
+<li>📉 цена теста упала</li>
+<li>📈 необходимость тестов выросла</li>
+<li>чем дешевле стал код, тем дороже стала проверка</li>
+</ul>
+</section>
+
+<!-- 40. Тесты нужно читать! -->
+<section><h1 class="big">Тесты нужно читать! 📖</h1></section>
+
+<!-- 41. Делайте тесты читаемыми -->
+<section>
+<h3>Делайте тесты читаемыми 📋</h3>
+<ul>
+<li>E2E и Smoke нужны</li>
+<li>паттерн AAA (Arrange → Act → Assert)</li>
+<li>PageObject</li>
+<li>skills и правила для написания тестов</li>
+</ul>
+</section>
+
+<!-- 42. Ревью без зеленых тестов -->
+<section><h2>Ревью без зелёных тестов — преступление 🚨</h2></section>
+
+<!-- 43. Screenshot -->
+<section data-background-image="img/slide41_1.png" data-background-size="contain" data-background-color="#000">
+</section>
+
+<!-- 44. Morning briefing — agent skipped failing test -->
+<section>
+<h3>🤖 Claude Agent пишет</h3>
+<div class="claude-report">
+<p style="color:#cdd6f4; font-size:1.1em; margin:0.5em 0;">Morning briefing — обработка 401 от ADMIN_TOKEN (skip gracefully)</p>
+</div>
+<p style="font-size:0.85em; margin-top:1em;">Тест упал с 401. Агент не починил.</p>
+<p style="font-size:0.85em;">Он просто <strong style="color:#f44;">скипнул</strong> и отчитался: «skip gracefully» 😎</p>
+<p style="font-size:0.7em; color:#888; margin-top:0.5em;">Изящно. Но прод от этого не починился.</p>
+</section>
+
+<!-- 45. Что могут агенты -->
+<section>
+<h3>Что могут агенты 🤖</h3>
+<ul>
+<li>«E2E» тесты без браузера 🎭</li>
+<li>снизить порог coverage</li>
+<li>тестирует PHP <code>DateTimeImmutable</code></li>
+<li>тестирует PHP наследование</li>
+<li>замокал и починил тест, но не код 🤡</li>
+</ul>
+</section>
+
+<!-- 46. Научитесь -->
+<section>
+<h3>Научитесь писать тесты и тестируемый код 🎓</h3>
+<p>Как вы объясните LLM, что вам нужно, и как вы провалидируете, что она делает?</p>
+</section>
+
+<!-- 47. Kalashnikov — Управление сложностью -->
+<section class="kal-slide">
+<h3>Калашников Михаил Тимофеевич</h3>
+<div class="two-col">
+<div class="col-img"><img src="img/slide45_1.png" alt=""></div>
+<div class="col-text"><ul class="kal-list">
+<li class="kal-item dimmed">Ответственность за последствия</li>
+<li class="kal-item dimmed">Проектирование перед действием</li>
+<li class="kal-item dimmed">Ясная формулировка задач</li>
+<li class="kal-item dimmed">Проверяемость и измеримость</li>
+<li class="kal-item active">Управление сложностью</li>
+<li class="kal-item dimmed">Процессы вместо героизма</li>
+<li class="kal-item dimmed">Системное мышление</li>
+</ul></div></div>
+</section>
+
+<!-- 49. Простые решения — в контексте разработки с агентами -->
+<section>
+<h3>Простые решения = агенту проще 🧹</h3>
+<ul>
+<li>простой код — агент поймёт с первого раза</li>
+<li>маленький класс — влезет в контекст</li>
+<li>явные зависимости — агент не читает мысли</li>
+<li>маленький PR — проще ревьюить и откатить</li>
+</ul>
+<p style="font-size:0.8em; color:#4fc3f7; margin-top:0.8em;">Чем проще кодовая база, тем умнее в ней агент 🤖</p>
+</section>
+
+<!-- 50. Больше проверок -->
+<section>
+<h3>Больше проверок 🔍</h3>
+<ul>
+<li>линтеры</li>
+<li>code style</li>
+<li>статический анализ</li>
+<li>unit-тесты</li>
+<li>покрытие тестами</li>
+</ul>
+</section>
+
+<!-- 51. Еще больше проверок -->
+<section>
+<h3>Ещё больше проверок 🔬</h3>
+<ul>
+<li>Rector</li>
+<li>Mutation testing</li>
+<li>проверка зависимостей на уязвимости</li>
+<li>PHP Mess Detector</li>
+<li>Deptrac</li>
+</ul>
+</section>
+
+<!-- 52. PHPMD -->
+<section>
+<h3>PHP Mess Detector 🕵️</h3>
+<ul>
+<li><code>ExcessiveMethodLength</code></li>
+<li><code>ExcessiveClassLength</code></li>
+<li><code>DevelopmentCodeFragment</code></li>
+<li><code>CyclomaticComplexity</code></li>
+<li><code>BooleanArgumentFlag</code></li>
+<li>…</li>
+</ul>
+</section>
+
+<!-- 53. Mutation tests — compact code -->
+<section>
+<h3>Mutation tests 🧬</h3>
+<p style="font-size:0.6em; color:#888;">Код ДО — без <code>trim()</code>:</p>
+<div class="code-block" style="font-size:0.6em;">
+<span class="keyword">if</span> (<span class="var">$name</span> === <span class="string">''</span>) {<br>
+&nbsp;&nbsp;<span class="keyword">throw new</span> <span class="fn">InvalidArgumentException</span>(...);<br>
+}
+</div>
+<p style="font-size:0.6em; color:#888; margin-top:0.4em;">Мутация: <span style="color:#f44;">Infection удаляет <code>trim()</code></span></p>
+<p style="font-size:0.6em; color:#aaa;"><code>'&nbsp;&nbsp;&nbsp;'</code> (пробелы) проходило валидацию — мутант выжил</p>
+<p style="font-size:0.6em; color:#888; margin-top:0.3em;">Код ПОСЛЕ:</p>
+<div class="code-block" style="font-size:0.6em;">
+<span class="keyword">if</span> (<span class="fn">trim</span>(<span class="var">$name</span>) === <span class="string">''</span>) { <span class="comment">// ← trim добавлен</span><br>
+&nbsp;&nbsp;<span class="keyword">throw new</span> <span class="fn">InvalidArgumentException</span>(...);<br>
+}
+</div>
+</section>
+
+<!-- 54. Ещё больше проверок (continuation) -->
+<section>
+<h3>Ещё больше проверок 🛡️</h3>
+<ul>
+<li>статанализ на Docker и Bash — на всё что есть в проекте</li>
+<li>анализ битых ссылок</li>
+<li>любой анализ, до которого сможете дотянуться</li>
+<li>ИИ-ревью не только кода</li>
+</ul>
+</section>
+
+<!-- 55. Пусть работают роботы — fullscreen -->
+<section data-background-image="img/slide51_1.png" data-background-size="contain" data-background-color="#000">
+</section>
+
+<!-- 56. Kalashnikov — Процессы -->
+<section class="kal-slide">
+<h3>Калашников Михаил Тимофеевич</h3>
+<div class="two-col">
+<div class="col-img"><img src="img/slide52_1.png" alt=""></div>
+<div class="col-text"><ul class="kal-list">
+<li class="kal-item dimmed">Ответственность за последствия</li>
+<li class="kal-item dimmed">Проектирование перед действием</li>
+<li class="kal-item dimmed">Ясная формулировка задач</li>
+<li class="kal-item dimmed">Проверяемость и измеримость</li>
+<li class="kal-item dimmed">Управление сложностью</li>
+<li class="kal-item active">Процессы вместо героизма</li>
+<li class="kal-item dimmed">Системное мышление</li>
+</ul></div></div>
+</section>
+
+<!-- 57. Агенты и инженеры — косяки с проверками -->
+<section>
+<h3>Агенты и проверки 🤝</h3>
+<ul>
+<li><strong>claude-opus-4.6</strong>, <strong>codex-gpt-5.4</strong> — не установили PHPMD вообще</li>
+<li><strong>claude-with-codex-review</strong> — не смог запустить мутационные тесты, честно задокументировал</li>
+<li><strong>claude-opus-4.6</strong> — тест упал → скипнул и отчитался «skip gracefully» 😎</li>
+</ul>
+<p style="font-size:0.8em; color:#888; margin-top:0.8em;">Агенты не ломают проверки. Они их <em>обходят</em>.</p>
+</section>
+
+<!-- 58. PHPMD — конфиг как резиновый штамп -->
+<section>
+<h3>PHPMD: конфиг деградировал за 7 коммитов 📉</h3>
+<table class="comparison-table" style="font-size:0.6em;">
+<thead><tr><th>Коммит</th><th>Что ослабил</th></tr></thead>
+<tbody>
+<tr><td>1.4 Task entity</td><td>ExcessiveParameterList → 12</td></tr>
+<tr><td>2.1 RegisterUser</td><td style="color:#f44;">StaticAccess OFF</td></tr>
+<tr><td>2.6 UpdateTask</td><td style="color:#f44;">BooleanArgumentFlag OFF</td></tr>
+<tr><td>5.3 → 6.2 → 6.3</td><td>Coupling: 13 → 16 → 22 → <strong style="color:#f44;">24</strong></td></tr>
+</tbody>
+</table>
+<p style="font-size:0.75em; color:#fab387; margin-top:0.6em;">Код не прошёл → агент ослабил конфиг, а не отрефакторил код</p>
+<p style="font-size:0.7em; color:#888;">Иногда нужно исключить директорию, а не убивать правило целиком</p>
+</section>
+
+<!-- 59. Assumption Log -->
+<section><h2>Assumption Log &amp; Changelog 📝</h2></section>
+
+<!-- 59. LLM не даст гарантию (more emojis) -->
+<section>
+<h3>LLM не даст гарантию ⚠️</h3>
+<ul>
+<li>👀 ревью</li>
+<li>📄 ревью документации</li>
+<li>🏗️ ревью архитектуры</li>
+<li>🔒 ревью безопасности</li>
+<li>⏰ время на исправление</li>
+<li>🧠 не храни знания о проекте в себе</li>
+<li>📊 мониторинг</li>
+<li>🍻 отмени релиз в пятницу</li>
+</ul>
+</section>
+
+<!-- 60. Kalashnikov — Системное мышление (LAST) -->
+<section class="kal-slide">
+<h3>Калашников Михаил Тимофеевич</h3>
+<div class="two-col">
+<div class="col-img"><img src="img/slide56_1.png" alt=""></div>
+<div class="col-text"><ul class="kal-list">
+<li class="kal-item dimmed">Ответственность за последствия</li>
+<li class="kal-item dimmed">Проектирование перед действием</li>
+<li class="kal-item dimmed">Ясная формулировка задач</li>
+<li class="kal-item dimmed">Проверяемость и измеримость</li>
+<li class="kal-item dimmed">Управление сложностью</li>
+<li class="kal-item dimmed">Процессы вместо героизма</li>
+<li class="kal-item active">Системное мышление</li>
+</ul></div></div>
+</section>
+
+<!-- 61. Новичкам -->
+<section>
+<h3>Новичкам 🎓</h3>
+<div class="split-cols">
+<div class="col">
+<h4 style="color:#a6e3a1;">Больше времени на:</h4>
+<ul class="green">
+<li>архитектуру</li>
+<li>тесты</li>
+<li>процессы</li>
+<li>работу с AI</li>
+<li>данные и интеграции</li>
+</ul>
+</div>
+<div class="col">
+<h4 style="color:#f38ba8;">Меньше времени на:</h4>
+<ul class="red">
+<li>магию фреймворков</li>
+<li>boilerplate</li>
+<li>зубрить синтаксис</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- 62. Хороший код — это ты -->
+<section>
+<h3>Хороший код — это ты 🪞</h3>
+<div class="two-col">
+<div class="col-img"><img src="img/slide58_1.png" alt=""></div>
+<div class="col-text">
+<ul style="list-style:none; padding:0;">
+<li>😤 ИИ ломает прод</li>
+<li>😤 ИИ не пишет тесты</li>
+<li>😤 ИИ не соблюдает стандарты</li>
+<li>😤 ИИ пишет плохой код</li>
+<li>😤 ИИ мне не помогает</li>
+<li>😤 ИИ код невозможно проверить</li>
+<li>😤 ИИ не подготовил окружение</li>
+</ul>
+<p style="color:#f44; font-weight:bold; font-size:1.1em; margin-top:0.8em;">👆 У тебя нет оправданий! Это ты!</p>
+</div></div>
+</section>
+
+<!-- 63. Спасибо -->
+<section><h2>Спасибо за внимание 🙏</h2></section>
+
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: true,
+  width: 1280,
+  height: 720,
+  margin: 0.08,
+  transition: 'slide',
+  pdfSeparateFragments: false
+});
+</script>
+</body>
+</html>
