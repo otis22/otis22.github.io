@@ -526,7 +526,6 @@ blockquote { border-left: 4px solid #f44; padding: 0.5em 1em; margin: 0.8em auto
 <li>простой код — агент поймёт с первого раза</li>
 <li>маленький класс — влезет в контекст</li>
 <li>явные зависимости — агент не читает мысли</li>
-<li>маленький PR — проще ревьюить и откатить</li>
 </ul>
 <p style="font-size:0.8em; color:#4fc3f7; margin-top:0.8em;">Чем проще кодовая база, тем умнее в ней агент 🤖</p>
 </section>
@@ -559,10 +558,8 @@ blockquote { border-left: 4px solid #f44; padding: 0.5em 1em; margin: 0.8em auto
 <section>
 <h3>PHP Mess Detector 🕵️</h3>
 <ul>
-<li><code>ExcessiveMethodLength</code></li>
-<li><code>ExcessiveClassLength</code></li>
-<li><code>DevelopmentCodeFragment</code></li>
 <li><code>CyclomaticComplexity</code></li>
+<li><code>ExcessiveMethodLength</code></li>
 <li><code>BooleanArgumentFlag</code></li>
 <li>…</li>
 </ul>
@@ -577,8 +574,7 @@ blockquote { border-left: 4px solid #f44; padding: 0.5em 1em; margin: 0.8em auto
 &nbsp;&nbsp;<span class="keyword">throw new</span> <span class="fn">InvalidArgumentException</span>(...);<br>
 }
 </div>
-<p style="font-size:0.6em; color:#888; margin-top:0.4em;">Мутация: <span style="color:#f44;">Infection удаляет <code>trim()</code></span></p>
-<p style="font-size:0.6em; color:#aaa;"><code>'&nbsp;&nbsp;&nbsp;'</code> (пробелы) проходило валидацию — мутант выжил</p>
+<p style="font-size:0.6em; color:#aaa; margin-top:0.4em;"><code>'<span style="background:#555; color:#fff; padding:0 2px;">&nbsp;&nbsp;&nbsp;</span>'</code> (пробелы) проходило валидацию — мутант выжил</p>
 <p style="font-size:0.6em; color:#888; margin-top:0.3em;">Код ПОСЛЕ:</p>
 <div class="code-block" style="font-size:0.6em;">
 <span class="keyword">if</span> (<span class="fn">trim</span>(<span class="var">$name</span>) === <span class="string">''</span>) { <span class="comment">// ← trim добавлен</span><br>
@@ -622,9 +618,9 @@ blockquote { border-left: 4px solid #f44; padding: 0.5em 1em; margin: 0.8em auto
 <section>
 <h3>Агенты и проверки 🤝</h3>
 <ul>
-<li><strong>claude-opus-4.6</strong>, <strong>codex-gpt-5.4</strong> — не установили PHPMD вообще</li>
 <li><strong>claude-with-codex-review</strong> — не смог запустить мутационные тесты, честно задокументировал</li>
 <li><strong>claude-opus-4.6</strong> — тест упал → скипнул и отчитался «skip gracefully» 😎</li>
+<li><strong>claude-opus-4.6</strong>, <strong>codex-gpt-5.4</strong> — не установили PHPMD вообще</li>
 </ul>
 <p style="font-size:0.8em; color:#888; margin-top:0.8em;">Агенты не ломают проверки. Они их <em>обходят</em>.</p>
 </section>
@@ -644,9 +640,6 @@ blockquote { border-left: 4px solid #f44; padding: 0.5em 1em; margin: 0.8em auto
 <p style="font-size:0.75em; color:#fab387; margin-top:0.6em;">Код не прошёл → агент ослабил конфиг, а не отрефакторил код</p>
 <p style="font-size:0.7em; color:#888;">Иногда нужно исключить директорию, а не убивать правило целиком</p>
 </section>
-
-<!-- 59. Assumption Log -->
-<section><h2>Assumption Log &amp; Changelog 📝</h2></section>
 
 <!-- 59. LLM не даст гарантию (more emojis) -->
 <section>
@@ -724,7 +717,17 @@ blockquote { border-left: 4px solid #f44; padding: 0.5em 1em; margin: 0.8em auto
 </section>
 
 <!-- 63. Спасибо -->
-<section><h2>Спасибо за внимание 🙏</h2></section>
+<section>
+<h2>Спасибо за внимание 🙏</h2>
+<div style="display:flex; align-items:center; justify-content:center; gap:3em; margin-top:1.2em;">
+  <img src="img/qr_repo.png" alt="QR" style="width:320px; height:320px; border:6px solid #fff; border-radius:8px;">
+  <div style="text-align:left; max-width:420px;">
+    <p style="font-size:0.9em; color:#fab387; font-weight:bold; margin-bottom:0.4em;">Вайбкодеры, зову в репо 🚀</p>
+    <p style="font-size:0.7em; color:#ddd; line-height:1.5;">Собираем лучший конфиг для агента: правила, проверки, процессы.</p>
+    <p style="font-size:0.6em; color:#888; margin-top:0.6em;">github.com/otis22/workflow-test-project</p>
+  </div>
+</div>
+</section>
 
 </div>
 </div>
