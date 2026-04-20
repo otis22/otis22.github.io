@@ -6,6 +6,8 @@ categories: PHP, Architecture
 
 ![Война с NULL](/images/2026/war-with-null-cover.png)
 
+Эта статья — текстовая версия моего доклада «NULL. Выбросить нельзя использовать» с Пых.конф'25. Запись выступления: [YouTube](https://www.youtube.com/watch?v=IWgz_BunEXo), [VK Видео](https://vk.com/video-212530316_456239249).
+
 Есть слова, от которых у программиста должен идти холодный код по спине.
 
 Одно из таких слов — `NULL`.
