@@ -2,6 +2,7 @@
 layout: post
 title: "Война с NULL"
 categories: PHP, Architecture
+image: /images/2026/war-with-null-cover.png
 ---
 
 ![Война с NULL](/images/2026/war-with-null-cover.png)

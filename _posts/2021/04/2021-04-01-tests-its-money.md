@@ -2,6 +2,7 @@
 layout: post
 title: Часть 1. Тесты стоят денег
 categories: PhpVrnMeetup Тесты Деньги Пирамида
+image: /images/2021/04/phpvrn.jpg
 ---
 
 Готовлю доклад на очередной митап сообщества php программистов в Воронеже. 

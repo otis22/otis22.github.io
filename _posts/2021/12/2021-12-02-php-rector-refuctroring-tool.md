@@ -2,6 +2,7 @@
 layout: post
 title: Rector побеждает legacy
 categories: рефакторинг legacy php
+image: /images/2021/12/rector-mem.jpg
 ---
 
 ![Ректор Мэм](/images/2021/12/rector-mem.jpg)

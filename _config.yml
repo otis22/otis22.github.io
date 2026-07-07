@@ -1,4 +1,5 @@
 title: Блог Романичева
+url: "https://otis22.github.io"
 author: Vladimir Romanichev
 email: vromanichev24@gmail.com
 description: > # this means to ignore newlines until "show_exerpts:"
@@ -54,6 +55,14 @@ plainwhite:
 
 #header_pages:
 # - about.md
+
+# Front matter defaults: fallback og:image for posts without their own cover
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      image: /images/myphoto.png
 
 # Build settings
 remote_theme: samarsault/plainwhite-jekyll

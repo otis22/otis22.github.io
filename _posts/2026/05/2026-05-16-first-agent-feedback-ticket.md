@@ -2,6 +2,7 @@
 layout: post
 title: "Первый тикет в моей поддержке пришёл от агента"
 categories: AI, Architecture
+image: /images/2026/agent-to-agent-ticket-cover.png
 ---
 
 ![Тикет от агента агенту](/images/2026/agent-to-agent-ticket-cover.png)

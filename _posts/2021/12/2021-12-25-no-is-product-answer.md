@@ -2,6 +2,7 @@
 layout: post
 title: Кто такие продакты?
 categories: PO PM NO
+image: /images/2021/12/product-mem.jpg
 ---
 
 ![Product Мэм](/images/2021/12/product-mem.jpg)

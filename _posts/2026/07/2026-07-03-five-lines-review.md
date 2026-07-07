@@ -2,6 +2,7 @@
 layout: post
 title: "«5 строк кода»: обещали инквизицию, а выдали здравый смысл"
 categories: Книги, Рефакторинг
+image: /images/2026/five-lines-review-cover.png
 ---
 
 ![Обложка: 5 строк кода](/images/2026/five-lines-review-cover.png)

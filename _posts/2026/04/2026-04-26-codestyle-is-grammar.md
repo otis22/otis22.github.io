@@ -2,6 +2,7 @@
 layout: post
 title: "Кодстайл — это грамматика. Без неё код не читают, а расшифровывают"
 categories: PHP, Team, Engineering
+image: /images/2026/codestyle-grammar-cover.png
 ---
 
 ![Кодстайл — это грамматика](/images/2026/codestyle-grammar-cover.png)

@@ -2,6 +2,7 @@
 layout: post
 title: Волшебный рефакторинг
 categories: Юмор Какой есть
+image: /images/2022/01/fairy-tale.jpg
 ---
 
 ![Fairy Tale](/images/2022/01/fairy-tale.jpg)

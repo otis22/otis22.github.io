@@ -2,6 +2,7 @@
 layout: post
 title: "«Некогда писать тесты»"
 categories: PHP, Engineering, Testing
+image: /images/2026/no-time-for-tests-cover.png
 ---
 
 ![Некогда писать тесты](/images/2026/no-time-for-tests-cover.png)

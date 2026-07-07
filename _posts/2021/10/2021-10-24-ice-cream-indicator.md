@@ -2,6 +2,7 @@
 layout: post
 title: Ice Cream Indicator - KPI, который действительно мотивирует
 categories: управление мотивация KPI
+image: /images/2021/10/ice-cream.jpg
 ---
 
 ![ice cream](/images/2021/10/ice-cream.jpg)

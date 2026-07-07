@@ -2,6 +2,7 @@
 layout: post
 title: "«Добавьте настройку» — почти всегда плохой запрос"
 categories: Product, Management
+image: /images/2026/add-settings-cover-v2.png
 ---
 
 ![Добавьте настройку](/images/2026/add-settings-cover-v2.png)

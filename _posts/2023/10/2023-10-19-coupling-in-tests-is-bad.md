@@ -2,6 +2,7 @@
 layout: post
 title: Почему связанные тесты - это зло?
 categories: Тестирование
+image: /images/2023/spaghetti-code.jpg
 ---
 
 ![Spaghetti Code](/images/2023/spaghetti-code.jpg)

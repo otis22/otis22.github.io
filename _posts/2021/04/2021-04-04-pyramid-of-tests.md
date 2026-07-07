@@ -2,6 +2,7 @@
 layout: post
 title: Чать 2. Пирамида Тестирования
 categories: PhpVrnMeetup Тесты Деньги Пирамида
+image: /images/2021/04/pyramid.png
 ---
 
 Тезисы: 

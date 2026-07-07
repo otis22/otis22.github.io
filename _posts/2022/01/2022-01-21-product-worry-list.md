@@ -2,6 +2,7 @@
 layout: post
 title: О чем должен думать Product?
 categories: PO PM 
+image: /images/2022/01/inspired.jpg
 ---
 
 ![Inspired Book Cover](/images/2022/01/inspired.jpg)

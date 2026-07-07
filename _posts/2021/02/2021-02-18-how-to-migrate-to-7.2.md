@@ -2,6 +2,7 @@
 layout: post
 title: Как перейти с 5.3 на 7.2 и вложиться в бюджет
 categories: Разработка, legacy, Tools
+image: /images/2021/02/first-arch.png
 ---
 
 В Воронеже решил познакомиться с местным php сообществом. 
