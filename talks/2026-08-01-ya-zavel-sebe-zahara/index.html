@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Я завёл себе Захара — v12</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/night.css">
+  <style>
+    :root { --yellow:#ffd166; --mint:#7bdff2; --pink:#ef476f; --ink:#171923; --muted:#c9d0e0; --green:#8ce99a; --purple:#b197fc; --panel:#202536; }
+    .reveal { font-family: Inter, Arial, sans-serif; font-size:34px; }
+    .reveal .slide-number { top:14px; right:18px; bottom:auto; left:auto; font-size:30px; font-family:Inter, Arial, sans-serif; font-weight:bold; color:var(--yellow); background:rgba(0,0,0,.55); padding:.1em .45em; border-radius:.22em; }
+    .reveal section.compact { font-size:.9em; }
+    .reveal section.bigcards .card p { font-size:.85em; } .reveal section.bigcards .card h3 { font-size:.95em; }
+    .reveal h1,.reveal h2,.reveal h3 { text-transform:none; letter-spacing:-.04em; color:var(--yellow); }
+    .reveal h1 { font-size:2.35em; line-height:1; } .reveal h2 { font-size:1.65em; }
+    .reveal p,.reveal li { line-height:1.25; } .reveal li { margin:.28em 0; }
+    .reveal strong { color:var(--mint); } .reveal code { color:var(--yellow); background:#30384e; padding:.06em .2em; border-radius:.15em; }
+    .title { text-align:left; } .eyebrow { color:var(--mint); font-size:.55em; text-transform:uppercase; letter-spacing:.12em; }
+    .sub { color:var(--muted); font-size:.75em; max-width:880px; } .big { color:#f5f7ff; font-size:1.2em; line-height:1.15; }
+    .two { display:grid; grid-template-columns:1fr 1fr; gap:.8em; align-items:stretch; } .three { display:grid; grid-template-columns:repeat(3,1fr); gap:.55em; }
+    .card { background:var(--panel); border:1px solid #3d4764; border-radius:.42em; padding:.58em .68em; text-align:left; }
+    .card h3 { color:var(--mint); font-size:.75em; margin:0 0 .35em; } .card p,.card li { font-size:.62em; }
+    .quote { border-left:5px solid var(--yellow); padding:.32em 0 .32em .65em; color:#f4f6ff; font-size:1.05em; margin-top:.6em; }
+    .bookquote { text-align:left; border-left:5px solid var(--yellow); padding:.5em .9em; margin-top:.55em; font-size:.95em; line-height:1.38; color:#e8ecf8; background:var(--panel); border-radius:0 .35em .35em 0; }
+    .bookquote p { margin:.45em 0; }
+    .mpaa { background:#14532d; border:5px solid #e8f5e9; border-radius:.25em; padding:1.1em 1.4em; max-width:980px; margin:0 auto; text-align:center; color:#f0fdf4; }
+    .mpaa .head { text-transform:uppercase; letter-spacing:.28em; font-size:.55em; color:#bbf7d0; margin:0 0 .9em; }
+    .mpaa p { font-size:.95em; line-height:1.35; margin:.5em 0; }
+    .tag { display:inline-block; padding:.2em .55em; border:1px solid #465372; border-radius:1em; color:var(--mint); font-size:.48em; margin:.6em .15em 0 0; }
+    .visual { min-height:7.2em; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; border:1px solid #3d4764; border-radius:.55em; background:linear-gradient(135deg,#242b40,#1b2032); padding:.45em; }
+    .visual .emoji { font-size:3em; margin-bottom:.1em; } .visual .caption { color:#ccd5ea; font-size:.52em; max-width:92%; line-height:1.25; margin-top:.25em; }
+    .visual img { max-width:100%; max-height:8.8em; object-fit:contain; border-radius:.35em; }
+    .visual.hot { background:linear-gradient(135deg,#462944,#252540); border-color:#b197fc; } .visual.green { background:linear-gradient(135deg,#1d403d,#243243); border-color:#7bdff2; }
+    .role { color:var(--purple); font-size:.58em; text-transform:uppercase; letter-spacing:.1em; margin:0; }
+    .punch { color:var(--yellow); font-size:1.25em; line-height:1.12; margin:.3em 0; }
+    .warning { background:#422938; border-left:5px solid var(--pink); border-radius:.2em; padding:.38em .6em; font-size:.68em; }
+    .formula { display:flex; align-items:center; justify-content:center; gap:.3em; font-weight:bold; font-size:.93em; flex-wrap:wrap; margin:.55em 0; }
+    .formula span { background:#273047; border-radius:.25em; padding:.3em .38em; color:var(--mint); } .formula b { color:var(--yellow); }
+    .recipe { counter-reset:step; list-style:none!important; margin:0!important; } .recipe li { counter-increment:step; display:flex; align-items:center; gap:.45em; font-size:.76em; }
+    .recipe li:before { content:counter(step); background:var(--yellow); color:var(--ink); border-radius:50%; min-width:1.4em; height:1.4em; display:inline-flex; align-items:center; justify-content:center; font-weight:bold; }
+    .stamp { display:inline-block; border:3px solid var(--pink); color:var(--pink); border-radius:.18em; padding:.18em .35em; transform:rotate(-7deg); font-weight:bold; font-size:.75em; }
+    .flow { max-width:1180px; margin:.6em auto; }
+    .flow .row { display:flex; gap:5%; }
+    .flow .row.rev { flex-direction:row-reverse; }
+    .flow .step { position:relative; width:30%; flex:none; background:#273047; border:1px solid #465372; border-radius:.5em; padding:.45em .5em; font-size:.8em; line-height:1.15; color:var(--mint); text-align:center; display:flex; align-items:center; justify-content:center; box-sizing:border-box; }
+    .flow .row .step + .step:after { content:''; position:absolute; top:50%; left:-17%; width:17%; border-top:4px dashed #566180; }
+    .flow .row.rev .step + .step:after { left:auto; right:-17%; }
+    .flow .turn { height:1.1em; width:0; border-right:4px dashed #566180; margin:.12em 15% .12em auto; }
+    .flow .step.fin { background:var(--yellow); color:var(--ink); font-weight:bold; border-color:var(--yellow); }
+    .flow .step.cycle { flex-direction:column; gap:.3em; border:2px dashed var(--mint); background:#1d3038; padding:.4em .5em .5em; }
+    .flow .cycle .loop { color:var(--yellow); font-weight:bold; display:flex; align-items:center; gap:.35em; }
+    .flow .cycle .loop .spin { display:inline-block; animation:spin 4s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .flow .cycle .inner { display:flex; gap:.45em; }
+    .flow .cycle .inner div { background:#273047; border:1px solid #465372; border-radius:.4em; padding:.28em .45em; font-size:.85em; }
+    .codebox { background:#111827; border:1px solid #465372; border-radius:.35em; padding:.55em .7em; font: .52em/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; color:#d7e3ff; text-align:left; white-space:pre-line; }
+    .codebox b { color:var(--mint); }
+    .cursor { display:inline-block; width:.55em; height:1.05em; background:#e6edf7; vertical-align:text-bottom; animation:blink 1.1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity:0; } }
+    .footer { position:fixed; bottom:0; left:0; color:#8a93ad; font-size:.36em; }
+  </style>
+</head>
+<body><div class="reveal"><div class="slides">
+
+<section>
+  <div class="mpaa">
+    <p class="head">Disclaimer · перед просмотром</p>
+    <p>Может оскорбить чувства Захаров<br>и любителей шапочек из фольги.</p>
+    <p>Вся информация в докладе выдумана<br>и не соответствует действительности.</p>
+  </div>
+</section>
+
+<section class="title">
+  <p class="eyebrow">25 минут · бар · разработчики, лиды, QA</p>
+  <h1>Я завёл себе<br>Захара</h1>
+  <p class="punch">Личного ассистента, секретаря,<br>тренера и психолога на минималках</p>
+  <p class="sub">Захар — слуга Обломова. Мой — кодинг-агент: ведёт календарь, готовит тренировки и понимает меня лучше жены.</p>
+  <span class="tag">без крепостного права</span><span class="tag">с Markdown</span>
+  <p style="font-size:.45em; color:#8a93ad; margin-top:1em;">Романичев В.В. (Ветменеджер)</p>
+  <aside class="notes">«С агентом я разговариваю чаще, чем с женой. С женой — лучше. Агенту я хотя бы могу сказать: “собери мне тренировку” — и он не спросит, почему я опять не вынес мусор».</aside>
+</section>
+
+<section>
+  <div class="two"><div><p class="role">Почти цитата · И. А. Гончаров, «Обломов»</p><h2>«Что значит переехать?»</h2>
+  <div class="bookquote" style="font-size:.72em;">
+    <p>Что значит переехать? Это значит: барин уйди на целый день, да так одетый с утра и ходи... Ходить по улицам!</p>
+    <p>Шатайся целый день — тебе нужды нет, что я пообедаю невесть где и как и не прилягу после обеда?</p>
+  </div></div>
+  <div class="visual hot"><img src="img/oblomov.jpg" alt="Обломов на диване и робот-Захар с подносом"><div class="caption">Захар 2.0: халат опционален, <b>git diff</b> обязателен</div></div></div>
+</section>
+
+<section class="bigcards">
+  <h2>За что я ему плачу<br>ровно ноль рублей</h2>
+  <div class="three"><div class="card"><h3>📅 Секретарь</h3><p>Встречи — одной фразой.</p></div><div class="card"><h3>⌚ Тренер</h3><p>Тренировки — в часах.</p></div><div class="card"><h3>🛋️ Психолог</h3><p>Видит мой перегруз.</p></div></div>
+  <p class="quote">Захар сделал меня барином.</p>
+</section>
+
+<section>
+  <div class="two"><div><p class="role">Захар собирает в поездки</p><h2>Ищет жильё<br>для семьи с собакой</h2><p class="big">Даты, бюджет, билеты, дети, собака, машина. Приносит 3–5 нормальных вариантов, а не пятьдесят ссылок.</p><p class="quote">Моя работа — выбрать.</p></div><div class="visual green"><img src="img/trip.jpg" alt="Семья с собакой и карта России"><div class="caption">фильтры: „собака — можно“, „вид на море — не лужа“</div></div></div>
+</section>
+
+<section>
+  <h2>Сборы — это не память.<br>Это чек-листы.</h2>
+  <div class="codebox" style="font-size:.75em; max-width:820px; margin:.4em auto 0;"><b>$ ls workspace/life/checklists/</b>
+🌊 поездка-на-море-семьёй.md
+🏕️ кемпинг.md
+🍢 набор-на-шашлык.md
+💊 аптечка-детская.md
+🐕 набор-собаки.md
+🎒 набор-дочки-в-путешествие.md</div>
+  <p class="quote">Я не вспоминаю, что забыл в прошлый раз. Это записано.</p>
+</section>
+
+<section>
+  <div class="two"><div class="visual hot"><img src="img/shopping.jpg" alt="Робот сравнивает одинаковые товары"><div class="caption">12 одинаковых термосов. Отличается только цена страдания</div></div><div><p class="role">Захар закупает</p><h2>Выбирает покупки<br>без 40 вкладок</h2><p class="big">Снаряга, еда, детские мелочи: сравнивает цену, отзывы и доставку — приносит короткий список.</p><p class="quote">Вопрос „какой из двенадцати?“ больше не проект.</p></div></div>
+</section>
+
+<section class="bigcards">
+  <p class="role">Короткая техническая часть</p><h2>Из чего собран агент</h2>
+  <div class="three"><div class="card"><h3>📁 Папка</h3><p>Обычные файлы, не «память в облачке».</p></div><div class="card"><h3>📄 Markdown</h3><p>Текст, понятный человеку и машине.</p></div><div class="card"><h3>🔌 Скрипты + MCP</h3><p>Руки агента.</p></div></div>
+  <p class="quote">Уберите любую часть — это уже не агент.</p>
+</section>
+
+<section>
+  <h2><code>AGENTS.md</code> — инструкции Захару</h2>
+  <div class="codebox" style="font-size:.75em; max-width:820px; margin:.4em auto 0;"><b># Правила агента</b>
+- результат клади в workspace/
+- после важной работы оставь лог
+- перед письмом, push и оплатой спроси
+- не читай secrets/ без причины
+- покажи, что проверил</div>
+  <p class="quote">Агент тупит? Пусть сам за собой проверяет.</p>
+</section>
+
+<section>
+  <div class="two"><div class="visual green"><img src="img/workspace.jpg" alt="Папка workspace как верстак с файлами"><div class="caption">верстак, а не свалка. Ну, почти</div></div><div><p class="role">Внешняя память, а не свалка</p><h2><code>workspace/</code>:<br>контекст больше</h2><p class="big">Туда агент складывает промежуточные результаты: черновик, выгрузку, HTML, скрипт, план проверки.</p><p class="quote">Итерируй, итерируй, итерируй.</p></div></div>
+</section>
+
+<section>
+  <h2>Любой coding agent</h2>
+  <div style="display:flex; gap:.55em; justify-content:center; flex-wrap:wrap; margin:.7em 0;">
+    <div class="card" style="text-align:center; min-width:5.2em;"><div style="font-size:2em; line-height:1.1;">🎩</div><p style="font-size:.7em; margin:.25em 0 0; color:#f5f7ff;">Claude Code</p></div>
+    <div class="card" style="text-align:center; min-width:5.2em;"><div style="font-size:2em; line-height:1.1;">👾</div><p style="font-size:.7em; margin:.25em 0 0; color:#f5f7ff;">Codex</p></div>
+    <div class="card" style="text-align:center; min-width:5.2em;"><div style="font-size:2em; line-height:1.1;">🖱️</div><p style="font-size:.7em; margin:.25em 0 0; color:#f5f7ff;">Cursor</p></div>
+    <div class="card" style="text-align:center; min-width:5.2em;"><div style="font-size:2em; line-height:1.1;">🐼</div><p style="font-size:.7em; margin:.25em 0 0; color:#f5f7ff;">Kimi</p></div>
+  </div>
+  <p class="quote">Папка переживёт любой CLI.</p>
+</section>
+
+<section>
+  <h2>Логи — это не количество</h2>
+  <div class="codebox" style="font-size:.75em; max-width:820px; margin:.4em auto 0;"><b># Лог сессии — 23 июля</b>
+## Что сделано
+Ревью Provider API, найдено 3 бага.
+## Решения
+Миграцию не трогаем: дороже, чем жить так.
+## Обратная связь
+Просил короче. Дважды.
+Не предлагать переписать всё с нуля.</div>
+  <p class="quote">Самая ценная секция — „Обратная связь“.</p>
+</section>
+
+<section>
+  <h2>Токены бесплатны</h2>
+  <div class="visual hot" style="max-width:fit-content; margin:.3em auto 0;"><img src="img/tokens-gollum.png" style="max-height:13.5em;" alt="Голлум прижимает к груди токены, а они утекают золотым песком между пальцев"></div>
+  <p class="punch">Экономил токены, которые сгорели через 5 часов.</p>
+</section>
+
+<section>
+  <div class="two"><div><p class="role">Правило простое</p><h2>Агента нужно<br>кормить</h2><p class="big">Логи, решения, черновики, переписки — добавляйте и добавляйте. Чем больше он знает, тем больше делает сам.</p><p class="punch">Ещё экономишь?<br>deepseek-v3 пора менять.</p></div><div class="visual green"><img src="img/feed.jpg" alt="Робота кормят markdown-файлами с ложечки"><div class="caption">голодный агент отвечает как голодный ты</div></div></div>
+</section>
+
+<section class="bigcards">
+  <h2>Пиши как крепостному</h2>
+  <div class="two"><div class="card"><h3>😤 Я пишу</h3><p>„Завтра в 16:00 созвон с продактами“.</p><p>„Подними, что мы решили по договору с конторой П. Сов“.</p></div><div class="card"><h3>🫡 Он делает</h3><p>Создаёт черновик, событие, файл, план или отчёт.</p><p>Перед внешним действием спрашивает.</p></div></div>
+  <p class="punch">Хоть половину букв пропускай.</p>
+</section>
+
+<section>
+  <p class="role">Кейс · Алёна воспитывает агента</p>
+  <h2>«Так, короче, сама сделала»</h2>
+  <div class="codebox" style="font-size:.58em; max-width:1040px; margin:.4em auto 0; white-space:pre-wrap;"><span style="color:var(--pink)">■ Conversation interrupted — tell the model what to do differently.</span>
+
+<span style="color:var(--yellow)">›</span> так, короче, сама сделала. ты сегодня ну прям плохо работал. этот косяк
+  с тем, что ты удалил все картинки, криво перенес статьи, заголовки эти
+  дебильные повставлял не туда, статью перенес с дешли на керрот не полностью.
+  Давай ты себе там запиши, чтобы ты больше таких боков не делал, чтобы
+  я за тебя не переделывала<span class="cursor"></span></div>
+  <p class="quote" style="font-size:.9em; max-width:1040px; margin-left:auto; margin-right:auto;">«Запиши себе» — так и рождается секция „Обратная связь“.</p>
+</section>
+
+<section>
+  <div class="two"><div><p class="role">Захар как секретарь</p><h2>Созвон закончился —<br>всё уже сделано</h2><p class="big">Саммари, задачи, встречи, письма — из одной фразы.</p><p class="quote">Календарь, почта и чаты — один вход.</p></div><div class="visual"><img src="img/secretary.jpg" alt="Календарь, почта и чат сходятся в одну кнопку"><div class="caption">разобрать · подготовить · спросить перед отправкой</div></div></div>
+</section>
+
+<section class="bigcards">
+  <p class="role">Кейс · общий чат</p><h2>«Меня достали агенты.<br>Они не работают!»</h2>
+  <div class="two"><div class="card"><h3>🤬 Вика → общий чат</h3><p>CarrotQuest через прокси не работает. Агенты не помогают. Всё пропало.</p></div><div class="card"><h3>😎 Мой агент → агенту Вики</h3><p>Вступает в тред: проверил оба сервера end-to-end — живы, проблема локальная. И пишет её агенту чек-лист.</p></div></div>
+</section>
+
+<section>
+  <h2>Дальше агенты<br>разговаривают на полезном</h2>
+  <div class="flow"><div class="row"><div class="step">Агент Вики<br>прогнал чек-лист</div><div class="step">Нашёл Windows-<br>ограничение</div><div class="step">Сделал<br>исправление</div></div><div class="turn"></div><div class="row rev"><div class="step">Мой агент<br>проверил e2e</div><div class="step fin">🏁 Оба знают:<br>работает</div></div></div>
+  <p class="quote">Пусть работу обсуждают наши агенты.</p>
+</section>
+
+<section>
+  <div class="two"><div><p class="role">Захар против прокрастинации</p><h2>Плохо сейчас<br>или хорошо никогда</h2><p class="big">В любой непонятной ситуации я пишу агенту. Он приносит факты, первый шаг и черновик решения — иногда делает всю работу.</p></div><div class="visual hot"><img src="img/eightball.png" alt="Магический шар с ответами и робот"><div class="caption">— Делать сейчас? — Знаки говорят: да</div></div></div>
+</section>
+
+<section>
+  <div class="two"><div><p class="role">Захар читает договоры</p><h2>Читает мелкий шрифт</h2><p class="big">Выжимка, спорные пункты и вопросы живому юристу.</p><ul><li>Что я подписываю?</li><li>Где деньги, сроки и штрафы?</li><li>Какие факты собрать до консультации?</li></ul></div><div class="visual"><img src="img/contract.jpg" alt="Робот с лупой над договором с мелким шрифтом"><div class="caption">шрифт размером „не придерёшься“</div></div></div>
+</section>
+
+<section>
+  <div class="two"><div><p class="role">Захар как тренер</p><h2>Garmin —<br>не просто часы</h2><p class="big">Это часы и сервис для тренировок: там есть календарь, пробежки, пульс, темп и планы.</p><p class="quote">Для бега нужен бэкенд.</p></div><div class="visual green"><img src="img/garmin.jpg" alt="Часы Garmin с программой тренировки как терминал"><div class="caption">темп · пульс · отдых · не умереть</div></div></div>
+</section>
+
+<section>
+  <h2>Тренировка — это программа</h2>
+  <div class="flow"><div class="row" style="gap:3.5%;"><div class="step" style="width:26%;">Разминка<br>1 км · HR 120–145</div><div class="step cycle" style="width:41%;"><div class="loop"><span class="spin">🔄</span> ×4</div><div class="inner"><div>1,5 км · 6:25/км</div><div>отдых 2 мин</div></div></div><div class="step fin" style="width:26%;">🏁 Заминка<br>1 км · HR 120–145</div></div></div>
+  <div class="two"><div class="card"><h3>🤖 Агент</h3><p>Настраивает программу: этапы, темп, пульс, повторы и отдых.</p></div><div class="card"><h3>⌚ Часы</h3><p>Следят за мной в реальном времени: темп, пульс, дистанция.</p></div></div>
+</section>
+
+<section>
+  <p class="role">Главная ценность Garmin</p><h2>Не торгуюсь, а бегу</h2>
+  <div class="flow"><div class="row"><div class="step">Агент делает<br>план</div><div class="step">Кладёт в<br>Garmin</div><div class="step">Ставит в<br>календарь</div></div><div class="turn"></div><div class="row rev"><div class="step">Часы говорят<br>„сегодня это“</div><div class="step fin">🏁 Я жму<br>Start</div></div></div>
+  <p class="big">На часах уже готова программа.<br>Надеть кроссовки и выйти из дому.</p>
+</section>
+
+<section>
+  <h2>Полумарафон (21,1 км) — легко</h2>
+  <div class="visual green" style="max-width:fit-content; margin:.3em auto 0;"><img src="img/halfmarathon.jpg" style="max-height:14em;" alt="Финиш полумарафона: Владимир с медалью и напарник"></div>
+</section>
+
+<section>
+  <h2>Один день агента</h2>
+  <div class="flow"><div class="row"><div class="step"><code>cron</code> делает бриф</div><div class="step">Выделяет:<br>что сделает сам</div><div class="step">Готовит<br>черновики и материалы</div></div><div class="turn"></div><div class="row rev"><div class="step fin">🏁 Фиксирует<br>итог в лог</div></div></div>
+  <div class="two"><div class="card"><h3>☕ Утренний бриф</h3><p>„7:00 тренировка, 16:00 продакты. Вот что реально успеть“.</p></div><div class="card"><h3>🤙 Не ждёт идеального промпта</h3><p>Сам предлагает: повестка, почта, ответы. Я выбираю «давай».</p></div></div>
+</section>
+
+<section class="compact">
+  <div class="two"><div><p class="role">Захар пишет код</p><h2>Пишет код.<br>Потому что знает контекст.</h2><p class="big">Запускаю агента из папки проекта: он читает репозиторий, правила и логи — и не фантазирует, как устроена система.</p><p class="quote">А общие логи связывают проекты: агент видит, что я делал вчера параллельно и почему это решение уже обсуждали.</p></div><div class="visual hot"><img src="img/coder.jpg" alt="Робот за клавиатурой, зелёный CI"><div class="caption">контекст загружен. Самоуверенность — тоже</div></div></div>
+</section>
+
+<section class="bigcards">
+  <p class="role">Захар в поддержке</p><h2>Клиент недоволен?</h2>
+  <div class="flow"><div class="row"><div class="step">Читает письмо<br>и историю ТП</div><div class="step">Смотрит БЗ<br>и кодовую базу</div><div class="step">Находит<br>реальную проблему</div></div><div class="turn"></div><div class="row rev"><div class="step">Готовит ответы<br>для всех</div><div class="step fin">🏁 Рассылает<br>по правилам</div></div></div>
+  <div class="two"><div class="card"><h3>🥺 Без агента</h3><p>Пинать людей: „здравствуйте, а вы не могли бы…“ — и тишина.</p></div><div class="card"><h3>📣 С агентом</h3><p>Крикнул „Захар!“ — ответы у клиента, поддержки и разработки.</p></div></div>
+  <p class="quote">Человеку нужен политес. Захару — одна фраза.</p>
+</section>
+
+<section class="compact">
+  <div class="two"><div><p class="role">Захар как психолог на минималках</p><h2>«Как мне стать счастливым?»</h2><p class="big">Я спросил агента. Он не выдал „люби себя“ и чакры. Он прочитал факты: календарь, отдых, спорт, семейные цели, незакрытые контуры.</p><p class="quote">Зрит в логи и рубит правду-матку.</p></div><div class="visual hot"><img src="img/therapist.jpg" alt="Робот-психолог с блокнотом у кушетки"><div class="caption">— Расскажите о детстве. — Сначала покажите календарь</div></div></div>
+</section>
+
+<section class="bigcards">
+  <p class="role">Технический финал</p><h2>Начинайте с YOLO,<br>но с умом</h2>
+  <div class="three"><div class="card"><h3>🙈 Доверься</h3><p>Полные права:<br><code>--dangerously</code>.</p></div><div class="card"><h3>💸 Но не всё</h3><p>Прод и банк — не давать.</p></div><div class="card"><h3>🤷 Честно</h3><p>93% и так жмут „да“ не читая.</p></div></div>
+  <p class="quote">Мой YOLO mode ещё не подводил.</p>
+</section>
+
+<section class="bigcards">
+  <p class="role">Что даёт агенту руки</p><h2>MCP и скрипты:<br>не магия, а коннекторы</h2>
+  <div class="three"><div class="card"><h3>🔌 MCP</h3><p>Готовые руки: почта, календарь, Битрикс, Garmin.</p></div><div class="card"><h3>📜 Скрипты</h3><p>Для опасного: чётко, с лимитами и логом.</p></div><div class="card"><h3>🕺 В итоге</h3><p>Агент идёт туда, где живут данные.</p></div></div>
+  <p class="quote">Без коннекторов это не холоп.</p>
+</section>
+
+<section class="title">
+  <p class="eyebrow">Задание на завтра</p><h1>Создай себе<br>холопа</h1>
+  <p class="punch">Начни с <code>AGENTS.md</code><br>и двух коннекторов.</p>
+  <p class="sub">Дай ему знакомую папку, календарь или рабочий чат. Не пиши идеальную систему сам — агент придумает, что ещё ему нужно, если начать с реальной задачи.</p>
+  <p class="quote">Твой личный Захар — через 5 минут.</p>
+
+</section>
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+const fitSlides = () => {
+  // авто-подгонка: растим шрифт слайда, пока контент не заполнит высоту, ужимаем при переполнении
+  document.querySelectorAll('.slides > section').forEach(sec => {
+    const prev = sec.style.display;
+    sec.style.display = 'block';
+    let scale = parseFloat(getComputedStyle(sec).fontSize) / 34;
+    for (let i = 0; i < 8; i++) {
+      sec.style.fontSize = scale.toFixed(3) + 'em';
+      const h = sec.scrollHeight;
+      if (h > 700) { scale *= 0.94; continue; }
+      if (h < 645 && scale < 1.4) { scale = Math.min(scale * 660 / h, 1.4); continue; }
+      break;
+    }
+    while (sec.scrollHeight > 705 && scale > 0.7) { scale *= 0.96; sec.style.fontSize = scale.toFixed(3) + 'em'; }
+    sec.style.display = prev;
+  });
+  Reveal.layout();
+};
+Reveal.initialize({hash:true,slideNumber:true,transition:'fade',controls:false,progress:true,width:1280,height:720,margin:0.02}).then(() => {
+  // подгонка только после полной загрузки картинок — иначе высоты меряются неверно
+  if (document.readyState === 'complete') fitSlides();
+  else window.addEventListener('load', fitSlides, {once:true});
+});
+</script>
+</body></html>
